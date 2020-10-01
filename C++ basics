@@ -1,0 +1,123 @@
+#include <iostream>
+using namespace std;
+void get(int array[], int size)
+{
+	for(int i =0 ; i <size ; i++)
+	cin>>array[i];
+}
+
+void display(int array[],int size)
+{
+	for(int i=0 ; i <size ; i++)
+	cout<<array[i]<<ends;
+}
+void deletea(int array[],int pos,int *size)
+{
+	while(pos<*size-1)
+	{
+	array[pos]=array[pos+1];
+	pos++;	
+	}
+	*size=*size-1; //*size--;
+}
+int linear_search(int array[], int element,int size)
+{
+	for(int i =0 ; i <size ; i++)
+	{
+		if(element==array[i])
+		return i;
+	}
+	return -1;
+}
+void insert(int array[], int element,int index,int *size)
+{
+	for(int i=(*size); i>=index;i--)
+	{
+	array[i+1]=array[i];
+    } 
+	array[index]=element;
+	*size=*size+1;
+	
+}
+void bubble_sort(int a[],int size)
+{
+	int temp;
+	bool flag;
+	int count=0;
+	for(int i =0 ; i<=size-2 ; i++)
+	{
+		flag=false;
+		for(int j=0 ; j<=size-2-i;j++)
+		{
+			if(a[j]>a[j+1])
+			{
+			temp=a[j];
+			a[j]=a[j+1];
+			a[j+1]=temp;
+			flag=true;
+			count++;
+		    }
+		    if(flag==false)
+		    break;
+		}
+	}
+}
+int main(int argc, char** argv) {
+	int *a,size,pos,element,index,value,choice;
+	cout<<"Enter the size\n";
+	cin>>size;
+	a= new int[size];
+	cout<<"Enter the Elements\n";
+	get(a,size);
+	cout<<"The elements are\n"<<endl;
+	display(a,size);
+	cout<<"\n\nPress 1 : To delete value\nPress 2 : To Delete value From index position\nPress 3 : To Perform Linear Search\nPress 4 : To insert element at particular index\nPress 5: To perform Bubble sort\n"; ;
+	cin>>choice;
+	switch(choice)
+	{
+	case 1:
+	cout<<"\nEnter the value from which you want to delete\n";
+	cin>>value;
+	pos=linear_search(a,value,size);
+	if(pos!=-1)
+	{
+	deletea(a,pos,&size);
+    }   
+	display(a,size);
+	break;
+	
+	case 2:
+	cout<<"\nEnter the index position from where you want to delete\n";
+	cin>>pos;
+	deletea(a,pos,&size);
+	display(a,size);
+	break;
+	
+	case 3:
+	cout<<"\nEnter the element which you want to search\n";
+	cin>>element;
+	linear_search(a,element,size);
+	break;
+	
+	case 4:
+		cout<<"\nEnter the element which you want to insert and at which index";
+		cin>>element>>index;
+		if(index<=size)
+		{
+		insert(a,element,index,&size);
+		display(a,size);
+	    }
+		else
+		cout<<"Index is greater";
+		break;
+
+  
+    	
+   case 5:
+	   	cout<<"Sorting done in lesser order\n";
+	   	bubble_sort(a,size);
+	   	display(a,size);
+	   	break;
+}
+	return 0;
+}

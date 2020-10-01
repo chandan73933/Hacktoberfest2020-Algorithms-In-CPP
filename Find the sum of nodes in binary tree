@@ -1,0 +1,105 @@
+#include <stdio.h>
+#include <stdlib.h>
+struct tree_node
+{
+	struct node *lchild;
+	struct node *rchild;
+	int data;
+};
+struct queue{
+	int size;
+	int front ; 
+	int rear;
+	struct tree_node **Q;
+};
+void create(struct queue *q,int size)
+{
+	q->size=size;
+	q->front=q->rear=0;
+	q->Q=(struct tree_node**)malloc(q->size*sizeof(struct tree_node *));
+}
+void enqueue(struct queue *q , struct tree_node *x)
+{
+	if((q->rear+1)%q->size == q->front)
+	printf("Queue is Full\n");
+	else
+	{
+		q->rear=(q->rear+1)%q->size;
+		q->Q[q->rear]=x;
+	}
+}
+struct tree_node * dequeue(struct queue *q )
+{
+	struct tree_node *x =  NULL;
+	if(q->front==q->rear)
+	printf("Queue is empty\n");
+	else
+	{
+		q->front++;
+		x = q->Q[q->front];
+	}
+	return x;
+}
+
+int isEmpty(struct queue q)
+{
+	return q.front==q.rear;
+}
+
+//Code For TREEEEE
+
+struct tree_node *root = NULL;
+
+
+
+int Tree_create(){
+	struct tree_node *p,*t;;
+	int sum=0;
+	int x;
+	struct queue q;
+	create(&q,100);
+	printf("enter the root value\n");
+	scanf("%d",&x);
+	root = (struct tree_node *)malloc(sizeof(struct tree_node *));
+	root->data  = x;
+	sum=sum+x;
+	root->lchild = root->rchild=NULL;
+	enqueue(&q,root);
+	while(!isEmpty(q))
+	{
+		p=dequeue(&q);
+		printf("Enter left child of %d\t",p->data);
+		scanf("%d",&x);
+		if(x!=-1)
+		{
+			t = (struct tree_node*)malloc(sizeof(struct tree_node ));
+			t->data=x;
+			sum=sum+x;
+			(t->lchild)=(t->rchild)=NULL;
+			(p->rchild)=t;
+			enqueue(&q,t);
+		}
+		
+		printf("Enter right child of %d\t",p->data);
+		scanf("%d",&x);
+		if(x!=-1)
+		{
+			t = (struct tree_node*)malloc(sizeof(struct tree_node ));
+			t->data=x;
+			sum=sum+x;
+			(t->lchild)=(t->rchild)=NULL;
+			(p->rchild)=t;
+			enqueue(&q,t);
+		}
+	}
+	return sum;
+}
+int main(int argc, char** argv) {
+	int a;
+	printf("----------------To Find Sum of nodes in tree--------------\n\n");
+	printf("If you enter -1 in this code node for that particular will not be created futher\n\n\n");
+
+	a= Tree_create();
+	printf("Sum of all the root nodes is %d",a);
+	return 0;
+}

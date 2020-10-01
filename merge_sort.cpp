@@ -3,45 +3,27 @@ using namespace std;
 void merge(int *a,int low,int high)
 {
 	int mid = (low+high)/2;
-	int i,j,k;
-	i = low;
-	j = mid+1;
-	k = low;
-	int b[10000] = {0};
-
-	while(i<=mid && j<=high)
-	{
-	
-
-		if(a[i] <= a[j])
-		{
-			b[k] = a[i];
-			i++;
+	vector<int> left,right;
+	for(int i=low,i<=mid;i++)
+		left.push_back(a[i]);
+	for(int i=mid+1,i<=high;i++)
+		right.push_back(a[i]);
+	int i=0; int j=0;
+	for(int k=low;k<=high;k++){
+		if(i == left.size()){
+			a[k] = left[i++];
+			continue;				
 		}
-		
+		else if(j == right.size()){
+			a[k] = right[j++];
+			continue;				
+		}
+		if(left[i] < right[j])
+			a[k] = left[i++];
 		else
-		{
-			b[k] = a[j];
-			j++;
-		}
-		
-			k++;
+			a[k] = right[j++];
 	}
-
-			while(i<=mid)
-			{
-				b[k] = a[i];
-				i++;k++;
-			}
-
-			while(j<=high)
-			{
-				b[k] = a[j];
-				j++;k++;
-	}
-
-	for(int i=low;i<=high;i++)
-			a[i] = b[i];
+	
 }
 
 

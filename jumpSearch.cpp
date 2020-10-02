@@ -1,6 +1,6 @@
 /*
 Title - Jump search Algorithm
-It will sort array
+It will search an array
 time complexity - O(N^0.5)
 */
 

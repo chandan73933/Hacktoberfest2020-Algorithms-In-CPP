@@ -25,36 +25,58 @@ using namespace std;
 #define elif else if
 #define nline cout << endl;
 
-//__________________________________😌😌SAB MOH MAYA HAI😌😌____________________________________________
-
-
-
-
-
-
 
 int ar[1000006] = {0};
-int n = 0;
+int n = 0, m;
 int tp(0), tp1(0), tp2(0), tp3(0), tp4(0);
 string str;
 int len;
 void pre_processing(){}
-//____________________________________😋Coding just for fun😋____________________________________________
 
+vin adj[100005];
+int vis[100005];
 
+stack<int> stk;
 
+void dfs(int node)
+{
+    vis[node] = true;
+    for(auto i : adj[node])
+        if(!vis[i])
+            dfs(i);
 
+    stk.push(node);
+}
 
 void solve()
 {
+    cin >> n >> m;
+    lop(m)
+    {
+        rdd(tp, tp1)
+        adj[tp].pb(tp1);
+    }
+    memset(vis, 0, sizeof(vis));
+    loop(1, n+1, i)
+        if(!vis[i])
+            dfs(i);
     
+    vin sorted_nodes;
+    while(!stk.empty())
+    {
+        sorted_nodes.push_back(stk.top());
+        stk.pop();
+    }
+    for(auto i : sorted_nodes)
+        cout << i << " ";
+    cout << endl;
 }
 
 int32_t main()
 {
     fastio;
     pre_processing();
-    w(true)
+    w(0)
     {
         // cout << "Case #" << t << ": ";
         solve();
